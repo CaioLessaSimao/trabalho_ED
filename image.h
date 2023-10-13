@@ -1,5 +1,7 @@
 #ifndef IMAGE_H
 #define IMAGE_H
+
+typedef struct image_struct image;
 /**
 * Creates a new image.
 *
