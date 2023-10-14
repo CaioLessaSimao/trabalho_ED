@@ -11,24 +11,7 @@ SRCS = main.c image.c
 OBJS = $(SRCS:.c=.o)
 
 # Executable name
-TARGET = test_linkedlist
-
-# Phony targets
-.PHONY: all compile run clean
-
-# Default target (compile and run)
-all: compile run
-
-# Explicit compile target (produces the target program)
-compile: $(TARGET)
-
-# Run the executable
-run: $(TARGET)
-  ./$(TARGET)
-
-# Clean up
-clean:
-  rm -f $(OBJS) $(TARGET)
+TARGET = my_program
 
 # Compile source files into object files
 %.o: %.c
@@ -37,3 +20,20 @@ clean:
 # Link object files to create the executable
 $(TARGET): $(OBJS)
   $(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
+
+# Run the executable
+run: $(TARGET)
+  ./$(TARGET)
+
+# Phony targets
+.PHONY: all compile run clean
+
+# Explicit compile target (produces the target program)
+compile: $(TARGET)
+
+# Default target (compile and run)
+all: compile run
+
+# Clean up
+clean:
+  rm -f $(OBJS) $(TARGET)
