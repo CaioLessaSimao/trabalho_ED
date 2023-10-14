@@ -11,21 +11,21 @@ typedef struct image_struct image;
 * @param type The PPM type ("P2" for grayscale or "P3" for color).
 * @return A pointer to the newly created image.
 */
-Image* create(int rows, int cols, char type[]);
+image* create(int rows, int cols, const char type[]);
 /**
 * Loads an image from a PPM file.
 *
 * @param filename The name of the PPM file to load.
 * @return A pointer to the loaded image.
 */
-Image* load_from_ppm(const char* filename);
+image* load_from_ppm(const char* filename);
 /**
 * Writes an image to a PPM file.
 *
 * @param image The image to write to the file.
 * @param filename The name of the PPM file to write.
 */
-void write_to_ppm(Image* image, const char* filename);
+void write_to_ppm(image* image, const char* filename);
 /**
 * Converts an RGB image to grayscale.
 *
@@ -33,5 +33,5 @@ void write_to_ppm(Image* image, const char* filename);
 * @param image_gray The output grayscale image where the result is
 stored.
 */
-void rgb_to_gray(Image* image_rgb, Image* image_gray);
+void rgb_to_gray(image* image_rgb, image* image_gray);
 #endif

@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include <string.h>
 
 struct image_struct {
 	char tipo[3];
@@ -11,7 +12,7 @@ struct image_struct {
 };
 
 
-image* create(int rows, int cols, char type[]){
+image* create(int rows, int cols, const char type[]){
 	unsigned char **matriz = malloc(rows * sizeof(unsigned char *));
 	
 	for (int k = 0; k < rows; k++) {
@@ -27,20 +28,22 @@ image* create(int rows, int cols, char type[]){
     		random = rand() % 256;
     		matriz[i][j] = (unsigned char)random;
     	}
-  }
+ 	}
 
-
+ 	
 	image *pic = malloc(sizeof(image));
 
-	image->tipo = type;
-	image->colunas = cols;
-	image->linhas = rows;
-	image->pixels = matriz;
+	strcpy(pic->tipo, type);
+	//pic->tipo = teste;
+	pic->colunas = cols;
+	pic->linhas = rows;
+	pic->pixels = matriz;
+	
 
 	return pic;
 }
 
-void write_to_ppm(Image* image, const char* filename){
+void write_to_ppm(image* image, const char* filename){
 	
 	FILE *file = fopen(filename, "w");
   	if (!file) {
@@ -51,6 +54,7 @@ void write_to_ppm(Image* image, const char* filename){
 
 	int width = image->colunas;
 	int height = image->linhas;
+	//unsigned char image_data = image->pixels;
 
 	fprintf(file, "P2\n");
 	fprintf(file, "%d %d\n", width, height);
@@ -59,7 +63,7 @@ void write_to_ppm(Image* image, const char* filename){
 
   	for (int i = 0; i < height; i++) {
     	for (int j = 0; j < width; j++) {
-      		fprintf(file, "%d", image_data[i][j]);
+      		fprintf(file, "%d", image->pixels[i][j]);
       		if (j < width - 1) {
        			fprintf(file, " ");
       		}
