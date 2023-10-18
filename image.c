@@ -12,7 +12,7 @@ struct image_struct {
 };
 
 
-image* create(int rows, int cols, const char type[]){
+image* create(int rows, int cols, const char type[]){ //adicionar rgb
 	unsigned char **matriz = malloc(rows * sizeof(unsigned char *));
 	
 	for (int k = 0; k < rows; k++) {
@@ -22,14 +22,14 @@ image* create(int rows, int cols, const char type[]){
 	srand(time(NULL));
 	int random;
 
-
+	/*
   	for (int i = 0; i < rows; i++) {
     	for (int j = 0; j < cols; j++) {
     		random = rand() % 256;
     		matriz[i][j] = (unsigned char)random;
     	}
  	}
-
+	*/
  	
 	image *pic = malloc(sizeof(image));
 
@@ -67,15 +67,15 @@ image* load_from_ppm(const char* filename){
 
   	fgets(tamanho, 50, ptr);
 
-  	char *elemento = malloc(sizeof(char *));
+  	char *elemento = malloc(3*sizeof(char));
   	char aux2[50];
-  	int convertido = 0;  
+  	int convertido = 0;  //mudar para unsigned char
   	
   	for(int i = 0; i < rows; i++){ 		
   		
   		fgets(aux2, 50, ptr);
   		elemento = strtok(aux2, " ");
-  		convertido = atoi(elemento);
+  		convertido = atoi(elemento); 
   		matriz[i][0] = (unsigned char)convertido;
   		
   		for(int j = 1; j < cols; j++){
@@ -112,7 +112,6 @@ void write_to_ppm(image* image, const char* filename){
 
 	int width = image->colunas;
 	int height = image->linhas;
-	//unsigned char image_data = image->pixels;
 
 	fprintf(file, "P2\n");
 	fprintf(file, "%d %d\n", width, height);
@@ -132,3 +131,5 @@ void write_to_ppm(image* image, const char* filename){
   	}
   	fclose(file);
 }
+
+//criar função usando scanf()
