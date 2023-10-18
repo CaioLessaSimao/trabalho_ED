@@ -34,7 +34,6 @@ image* create(int rows, int cols, const char type[]){
 	image *pic = malloc(sizeof(image));
 
 	strcpy(pic->tipo, type);
-	//pic->tipo = teste;
 	pic->colunas = cols;
 	pic->linhas = rows;
 	pic->pixels = matriz;
@@ -42,6 +41,65 @@ image* create(int rows, int cols, const char type[]){
 
 	return pic;
 }
+
+
+image* load_from_ppm(const char* filename){
+
+	FILE* ptr = fopen(filename, "a+");
+
+	char type[4];
+	fgets(type, 20, ptr);
+
+	char tamanho[10];
+	fgets(tamanho, 50, ptr);
+
+	char* coluna = strtok(tamanho, " ");
+    char* linha = strtok(NULL, " ");
+
+    int cols = atoi(coluna);
+    int rows = atoi(linha);
+
+    unsigned char **matriz = malloc(rows * sizeof(unsigned char *));
+	
+	for (int k = 0; k < rows; k++) {
+    	matriz[k] = malloc(cols * sizeof(unsigned char));
+  	}
+
+  	fgets(tamanho, 50, ptr);
+
+  	char *elemento = malloc(sizeof(char *));
+  	char aux2[50];
+  	int convertido = 0;  
+  	
+  	for(int i = 0; i < rows; i++){ 		
+  		
+  		fgets(aux2, 50, ptr);
+  		elemento = strtok(aux2, " ");
+  		convertido = atoi(elemento);
+  		matriz[i][0] = (unsigned char)convertido;
+  		
+  		for(int j = 1; j < cols; j++){
+  			
+  			elemento = strtok(NULL, " ");
+  			convertido = atoi(elemento);
+  			matriz[i][j] = (unsigned char)convertido;
+  		}
+  	}
+ 
+  	image *pic = malloc(sizeof(image));
+
+	strcpy(pic->tipo, type);
+	pic->colunas = cols;
+	pic->linhas = rows;
+	pic->pixels = matriz;
+
+	printf("%s", pic->tipo);
+	printf("%d\n", pic->colunas);
+	printf("%d\n", pic->linhas);
+
+	return pic;
+}
+
 
 void write_to_ppm(image* image, const char* filename){
 	
