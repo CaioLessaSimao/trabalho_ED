@@ -34,4 +34,4 @@ image *img_p3 = load_from_ppm("input.ppm");
 image *img_gray = rgb_to_gray(img_p3);
 
 // Salva a imagem P2 em um arquivo PGM.
-write_to_ppm(img_p2, "output.pgm");
+write_to_ppm(img_p2, "output.ppm");
